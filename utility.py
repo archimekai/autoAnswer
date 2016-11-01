@@ -32,4 +32,39 @@ def contains_key_words(sentence: str, key_words):
             return False
     return True
 
+# clean text
+hypertextP = re.compile(r'<[^>]+>')
+def clean_hypertext(str):
+    return hypertextP.sub("", str)
 
+
+from bs4 import BeautifulSoup
+import requests
+
+
+def download_clean_text(url: str, out_file_name: str):
+    html = requests.get(url)
+    html.encoding = 'utf-8'
+    doc = BeautifulSoup(html.text, "lxml")
+    for script in doc(["script", "style"]):
+        script.extract()
+    file = open(out_file_name, 'w', encoding='utf-8')
+    file.write(doc.get_text())
+    file.close()
+
+remove_lf = re.compile(r'\n+')
+def download_clean_text_str(url: str):
+    html = requests.get(url)
+    html.encoding = 'utf-8'
+    doc = BeautifulSoup(html.text, "lxml")
+    for script in doc(["script", "style"]):
+        script.extract()
+    contents = doc.get_text()
+    return remove_lf.sub("\n", contents)
+
+
+
+if __name__ == '__main__':
+    doc_name = 'baiduBaike_huanglian.txt'
+    url = r'http://baike.baidu.com/subview/21017/16128831.htm'
+    print(download_clean_text_str(url))
