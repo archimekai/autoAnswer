@@ -67,4 +67,6 @@ def download_clean_text_str(url: str):
 if __name__ == '__main__':
     doc_name = 'baiduBaike_huanglian.txt'
     url = r'http://baike.baidu.com/subview/21017/16128831.htm'
-    print(download_clean_text_str(url))
+    file = open(doc_name, 'w', encoding='utf-8')
+    file.write(download_clean_text_str(url))
+    # print(download_clean_text_str(url))
