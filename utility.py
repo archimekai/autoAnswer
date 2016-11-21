@@ -136,6 +136,16 @@ def check_similarity(doc: str, truth: str):
     return max(similarities)
 
 
+def split_to_sentences(paragraph: str)->list:
+    '''
+    返回句子的列表
+    :param paragraph:
+    :return:
+    '''
+    # sentence_splitters = ['。', '！']  # TODO 句子的切分有没有好用的包？
+    pattern = re.compile(r'[。！]')
+    return pattern.split(paragraph)
+
 if __name__ == '__main__':
     text_truth = r'这与哈密瓜的产地有很大关系。哈密瓜产在我国的新疆吐鲁番盆地一带。那里夏天太阳刚刚升起，地面就热起来，到了中午地面把空气烤得很热，气温经常在四十摄氏度以上。一到晚上，气温又很快下降。由于那里早晚温差大，又很少下雨，很适于哈密瓜的生长。白天阳光强烈，哈密瓜的叶子就加紧制造养分，并把这些养分转化成糖分，送到瓜里存起来，晚上气温低，哈蜜瓜休息了，呼吸很慢，养分消耗就少了。所以哈密瓜长得又大又甜。'
     file = open('baiduBaike_hamigua.txt')
